@@ -25,10 +25,11 @@ pipeline {
                 sh "mvn package"
             }
         }
-        stage('docker version')
-              steps{
-                  sh "docker --version"
-              }
+        stage('Check Docker Version') {
+            steps {
+                sh 'docker --version'
+            }
+        }
     }
     post {
         always {
