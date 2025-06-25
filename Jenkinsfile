@@ -49,7 +49,7 @@ pipeline {
                     // Stop if already running
                     sh """
                     docker rm -f $CONTAINER_NAME || true
-                    docker run -d --name $CONTAINER_NAME $IMAGE_NAME
+                    docker run -d -p 8082:8080 --name $CONTAINER_NAME $IMAGE_NAME
                     """
                 }
             }
