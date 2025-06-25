@@ -25,7 +25,7 @@ pipeline {
                 sh "mvn package"
             }
         }
-        stage('docker version)
+        stage('docker version')
               steps{
                   sh "docker --version"
               }
