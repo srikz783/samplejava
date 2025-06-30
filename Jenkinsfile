@@ -35,6 +35,13 @@ pipeline {
                 }
             }
         }
+        stage('QualityGate check'){
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline:true
+                }
+            }
+        }
         
         stage('Package') {
             steps {
