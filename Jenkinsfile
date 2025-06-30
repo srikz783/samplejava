@@ -9,6 +9,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'my-docker-app'
         CONTAINER_NAME = 'my-app-container'
+        SCANNER_HOME = tool 'sonar-scanner'
     }
 
     stages {
@@ -21,7 +22,17 @@ pipeline {
         
         stage('Test') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                //sh 'mvn clean install -DskipTest'
+                sh 'mvn test'
+            }
+        }
+        stage('sonarqube') {
+            steps {
+               withSonarQubeEnv('sonar-server') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=bloggingApp -Dsonar.projectKey=bloggingApp \
+                            -Dsonar.java.binaries=target '''
+                   sh "echo $SCANNER_HOME"
+                }
             }
         }
         
@@ -30,11 +41,7 @@ pipeline {
                 sh "mvn package"
             }
         }
-        stage('Check Docker Version') {
-            steps {
-                sh 'docker --version'
-            }
-        }
+        
         stage('Build Docker Image') {
             steps {
                 script {
