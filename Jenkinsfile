@@ -48,6 +48,13 @@ pipeline {
             }
         }
         
+        stage('OWASP DC') {
+            steps {
+                dependencyCheck additionalArguments: ' --scan ./ ' , odcInstallation: 'DC'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 script {
