@@ -47,7 +47,15 @@ pipeline {
                 sh "mvn package"
             }
         }
-        
+        stage('publish') {
+            steps {
+                script {
+                    withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: 'maven.settings', traceability: true) {
+                        sh "mvn deploy"
+                    }
+                }
+            }
+        }
         stage('OWASP DC') {
             steps {
                 dependencyCheck additionalArguments: ' --scan ./ ' , odcInstallation: 'DC'
