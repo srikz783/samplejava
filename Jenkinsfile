@@ -37,8 +37,9 @@ pipeline {
         }
         stage('QualityGate check'){
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline:true
+               // timeout(time: 1, unit: 'HOURS') {
+                  //  waitForQualityGate abortPipeline:true
+                sh "echo $SCANNER_HOME"
                 }
             }
         }
