@@ -35,6 +35,12 @@ pipeline {
                 }
             }
         }
+
+        stage('Trivy FS scan') {
+            steps {
+                sh "trivy FS --format table -o result.txt ."
+            }
+        }
         
         stage('Package') {
             steps {
