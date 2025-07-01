@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: 'maven.settings', traceability: true) {
-                        sh "mvn deploy"
+                        sh "mvn clean deploy"
                     }
                 }
             }
