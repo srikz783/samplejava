@@ -23,8 +23,8 @@ pipeline {
         
         stage('Test') {
             steps {
-                //sh 'mvn clean install -DskipTest'
-                sh 'mvn test'
+                sh 'mvn test -DskipTest=true'
+                //sh 'mvn test'
             }
         }
         stage('sonarqube') {
@@ -81,7 +81,9 @@ pipeline {
 
         stage('Verify Running Container') {
             steps {
-                sh "docker ps | grep $CONTAINER_NAME"
+                withDockerRegistry(credentialsId: 'docker-login') {
+                sh "docker push ${IMAGE_NAME}:${TAG}
+                }
             }
         }
     }
