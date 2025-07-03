@@ -82,7 +82,7 @@ pipeline {
         stage('Verify Running Container') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-login') {
-                sh "docker push ${IMAGE_NAME}:${TAG}
+                sh "docker push ${IMAGE_NAME}:${TAG}"
                 }
             }
         }
