@@ -78,11 +78,12 @@ pipeline {
                 }
             }
         }
-
-        stage('Verify Running Container') {
+        stage('Docker push') {
             steps {
-                withDockerRegistry(credentialsId: 'docker-login') {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-login') {
                 sh "docker push ${IMAGE_NAME}:${TAG}"
+                    }
                 }
             }
         }
