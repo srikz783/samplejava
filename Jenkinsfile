@@ -7,7 +7,8 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'my-docker-app'
+        IMAGE_NAME = 'srikanth/my-docker-app'
+        TAG = "${env.BUILD_NUMBER}"
         CONTAINER_NAME = 'my-app-container'
         SCANNER_HOME = tool 'sonar-scanner'
     }
@@ -61,7 +62,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t $IMAGE_NAME ."
+                    sh "docker build -t ${IMAGE_NAME}:${TAG} ."
                 }
             }
         }
@@ -72,7 +73,7 @@ pipeline {
                     // Stop if already running
                     sh """
                     docker rm -f $CONTAINER_NAME || true
-                    docker run -d -p 8082:8080 --name $CONTAINER_NAME $IMAGE_NAME
+                    docker run -d -p 8082:8080 --name $CONTAINER_NAME ${IMAGE_NAME}:${TAG}
                     """
                 }
             }
