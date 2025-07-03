@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'srikanth/my-docker-app'
+        IMAGE_NAME = 'srik783/bloggingapp'
         TAG = "${env.BUILD_NUMBER}"
         CONTAINER_NAME = 'my-app-container'
         SCANNER_HOME = tool 'sonar-scanner'
